@@ -15,7 +15,7 @@ jobs:
             fi
             
             if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
-              echo '' > test-results/rspec.xml
+              echo '<testsuite></testsuite>' > test-results/rspec.xml
             fi
 
       - store_test_results:
