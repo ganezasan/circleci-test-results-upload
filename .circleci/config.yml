@@ -5,18 +5,19 @@ jobs:
       - image: circleci/node:latest
     parallelism: 3
     steps:
+
       - run: 
           command: |
             mkdir test-results
-            echo '<testsuite name="rspec" tests="1" skipped="0" failures="0" errors="0" time="0.208376" timestamp="2020-09-16T07:51:20+00:00"><properties><testcase classname="spec.controllers.posts_controller_spec" name="PostsController GET #index returns a success response" file="./spec/controllers/posts_controller_spec.rb" time="0.043630"/></properties></testsuite>' > test-results/rspec.xml
+            if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
+              # first container doesn's make a folder and a file
+              echo '<testsuite name="rspec" tests="1" skipped="0" failures="0" errors="0" time="0.208376" timestamp="2020-09-16T07:51:20+00:00"><properties><testcase classname="spec.controllers.posts_controller_spec" name="PostsController GET #index returns a success response" file="./spec/controllers/posts_controller_spec.rb" time="0.043630"/></properties></testsuite>' > test-results/rspec.xml
+            fi
+            
+            if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
+              echo '' > test-results/rspec.xml
+            fi
 
-#       - run: 
-#           command: |
-#             if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
-#               # first container doesn's make a folder and a file
-#               mkdir test-results
-#               echo '<testsuite name="rspec" tests="1" skipped="0" failures="0" errors="0" time="0.208376" timestamp="2020-09-16T07:51:20+00:00"><properties><testcase classname="spec.controllers.posts_controller_spec" name="PostsController GET #index returns a success response" file="./spec/controllers/posts_controller_spec.rb" time="0.043630"/></properties></testsuite>' > test-results/rspec.xml
-#             fi
       - store_test_results:
           path: test-results
 
