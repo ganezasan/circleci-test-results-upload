@@ -9,7 +9,7 @@ jobs:
       - run: 
           command: |
             mkdir test-results
-            echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><properties><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></properties></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
+            echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             
 #       - run: 
 #           command: |
