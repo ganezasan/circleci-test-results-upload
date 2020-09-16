@@ -14,8 +14,8 @@ jobs:
             fi
             
             if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
-               circleci step halt
-#              echo '<testsuite name=\"rspec\" tests=\"0\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
+              # echo '<testsuite name=\"rspec\" tests=\"0\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
+              circleci step halt
             fi
 
       - store_test_results:
