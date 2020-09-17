@@ -46,7 +46,7 @@ jobs:
       - store_test_results:
           path: test-results
 
-case-3: # normal
+  case-3: # normal
     docker:
       - image: circleci/node:latest
     parallelism: 3
