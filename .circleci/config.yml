@@ -7,17 +7,15 @@ jobs:
     steps:
       - run: 
           command: |
-            mkdir test-results
             if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
               sleep 300
+              mkdir test-results
               # first container doesn's make a folder and a file
               echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             fi
             
             if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
               echo 'none'
-              # echo '<testsuite name=\"rspec\" tests=\"0\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
-              # circleci step halt
             fi
 
       - store_test_results:
@@ -30,17 +28,14 @@ jobs:
     steps:
       - run: 
           command: |
-            mkdir test-results
             if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
               # first container doesn's make a folder and a file
+              mkdir test-results
               echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             fi
             
             if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
               sleep 300
-              echo 'none'
-              # echo '<testsuite name=\"rspec\" tests=\"0\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
-              # circleci step halt
             fi
 
       - store_test_results:
@@ -53,9 +48,9 @@ jobs:
     steps:
       - run: 
           command: |
-            mkdir test-results
             if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
               # first container doesn's make a folder and a file
+              mkdir test-results
               echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             fi
             
@@ -71,12 +66,10 @@ jobs:
           command: |
             mkdir test-results
             if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
-              # first container doesn's make a folder and a file
               echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             fi
             if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
-              echo '<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
-              # circleci step halt
+              echo '<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\"><properties><testcase /></properties></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
             fi
 
       - store_test_results:
