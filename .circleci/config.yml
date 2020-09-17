@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  case-1: # skip store_test_results at first job
     docker:
       - image: circleci/node:latest
     parallelism: 3
@@ -22,4 +22,31 @@ jobs:
       - store_test_results:
           path: test-results
 
- 
+  case-2: # skip store_test_results at last job
+    docker:
+      - image: circleci/node:latest
+    parallelism: 3
+    steps:
+      - run: 
+          command: |
+            mkdir test-results
+            if [ ${CIRCLE_NODE_INDEX} -ne 0 ]; then
+              # first container doesn's make a folder and a file
+              echo "<testsuite name=\"rspec\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" time=\"0.208376\" timestamp=\"2020-09-16T07:51:20+00:00\"><testcase classname=\"spec.controllers.posts_controller_spec\" name=\"PostsController GET #index returns a success response\" file=\"./spec/controllers/posts_controller_spec-$CIRCLE_NODE_INDEX.rb\" time=\"0.043630\"/></testsuite>" > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
+            fi
+            
+            if [ ${CIRCLE_NODE_INDEX} -eq 0 ]; then
+              sleep 300
+              # echo '<testsuite name=\"rspec\" tests=\"0\" skipped=\"0\" failures=\"0\" errors=\"0\"></testsuite>' > test-results/rspec-${CIRCLE_NODE_INDEX}.xml
+              # circleci step halt
+            fi
+
+      - store_test_results:
+          path: test-results
+
+workflows:
+  version: 2
+  workflow: 
+    jobs:
+      - case-1
+      - case-2
